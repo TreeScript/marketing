@@ -11,11 +11,6 @@ const thicknessMap: Record<Thickness, string> = {
     md: "3px"
 } as const
 
-type DivProps = { 
-    $orientation: Orientation 
-    $thickness: Thickness
-}
-
 const base = ($orientation: Orientation) =>
     $orientation === "horizontal"
         ? css`
@@ -27,7 +22,7 @@ const base = ($orientation: Orientation) =>
             height: 100%;
         `
 
-const solidStyle = ({ $orientation = "horizontal", $thickness = "sm" }: DivProps) =>
+const solidStyle = ($orientation: Orientation = "horizontal", $thickness: Thickness = "sm") =>
     $orientation === "horizontal"
         ? css`
             border-top: ${(thicknessMap[$thickness])} solid #E5E7EB;
@@ -36,7 +31,7 @@ const solidStyle = ({ $orientation = "horizontal", $thickness = "sm" }: DivProps
             border-left: ${(thicknessMap[$thickness])} solid #E5E7EB;
         `
 
-const dashedStyle = ({ $orientation }: { $orientation: Orientation }) =>
+const dashedStyle = ($orientation: Orientation) =>
     $orientation === "horizontal"
         ? css`
             border-top: 1px dashed #CBD5E1;
@@ -45,7 +40,7 @@ const dashedStyle = ({ $orientation }: { $orientation: Orientation }) =>
             border-left: 1px dashed #CBD5E1 ;
         `
 
-const gradientStyle = ({ $orientation }: { $orientation: Orientation }) =>
+const gradientStyle = ($orientation: Orientation) =>
     $orientation === "horizontal"
         ? css`
             height: 1px;
@@ -56,7 +51,7 @@ const gradientStyle = ({ $orientation }: { $orientation: Orientation }) =>
             background: linear-gradient(180deg, #e5e7eb00, #e5e7eb 20%, #e5e7eb 80%, #e5e7eb00);
         `
 
-const subtleStyle = ({ $orientation }: { $orientation: Orientation }) =>
+const subtleStyle = ($orientation: Orientation) =>
     $orientation === "horizontal"
         ? css`
             height: 1px;
@@ -86,6 +81,30 @@ export const Divider = styled.div<DividerProps>`
         switch(variant) {
             case "solid":
                 return solidStyle($orientation, $thickness)
+            case "dashed":
+                return dashedStyle($orientation)
+            case "gradient":
+                return gradientStyle($orientation)
+            case "subtle":
+                return subtleStyle($orientation)
+            default:
+                return subtleStyle($orientation)
         }
     }}
+
+    ${({ m }) => m && css`
+        margin: ${m};
+    `}
+    ${({ mt }) => mt && css`
+        margin-top: ${mt};
+    `}
+    ${({ mb }) => mb && css`
+        margin-bottom: ${mb};
+    `}
+    ${({ ml }) => ml && css`
+        margin-left: ${ml};
+    `}
+    ${({ mr }) => mr && css`
+        margin-right: ${mr};
+    `}
 `

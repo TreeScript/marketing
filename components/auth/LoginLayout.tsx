@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "../ui/Button"
-import { Wrap, Card, Title, Sub, Divider, ErrorText } from './Login.styles'
+import { Login } from "./Login.styles"
 
 type LoginLayoutProps = {
     onGuest: () => void
@@ -15,33 +15,62 @@ export function LoginLayout({
     error
 }: LoginLayoutProps) {
     return (
-        <Wrap>
-            <Card>
-                <Title>로그인</Title>
-                <Sub>게스트로 시작하거나, 이메일로 로그인하세요.</Sub>
+        <Login.Page>
+            <Login.Shell>
+                <Login.TopBar>
+                    <Login.Brand>
+                        <Login.BrandMark>
+                            <Login.BrandBar>
+                                <span />
+                                <span />
+                                <span />
+                            </Login.BrandBar>
+                        </Login.BrandMark>
+                        <Login.BrandName>Marketing SQL Lab</Login.BrandName>
+                        <Login.Badge>Beta</Login.Badge>
+                    </Login.Brand>
+                </Login.TopBar>
 
-                <div style={{ display: 'grid', gap: 12, marginTop: 16 }}>
-                    <Button onClick={onGuest} disabled={loading}>
-                        {loading ? '진행 중...' : '게스트로 시작하기'}
-                    </Button>
+                <Login.MainGrid>
+                    <Login.Intro>
+                        <Login.IntroCaption>
+                            데이터 기반 마케터를 위한 실전 연습실
+                        </Login.IntroCaption>
+                        <Login.IntroTitle>
+                            SQL · GA4 · GTM까지, <span>실무형 연습</span>
+                        </Login.IntroTitle>
+                        <Login.IntroSub>
+                            실제 마케팅 데이터를 기반으로 SQL 문제를 풀고
+                            <br />
+                            GA4와 GTM 시나리오를 연습하며 포트폴리오를 쌓아보세요.
+                        </Login.IntroSub>
+                        <Login.BulletList>
+                            <Login.BulletItem>
+                                <Login.BulletIcon>📊</Login.BulletIcon>
+                                <Login.BulletText>
+                                    캠페인 · 채널 · 소재별 퍼포먼스 SQL 실습
+                                </Login.BulletText>
+                                </Login.BulletItem>
+                            <Login.BulletItem>
+                                <Login.BulletIcon>🧩</Login.BulletIcon>
+                                <Login.BulletText>
+                                    퍼널 · 리텐션 · 코호트 분석 시나리오 문제
+                                </Login.BulletText>
+                            </Login.BulletItem>
+                            <Login.BulletItem>
+                                <Login.BulletIcon>🔐</Login.BulletIcon>
+                                <Login.BulletText>
+                                    실습 기록을 마케터 포트폴리오로 연결
+                                </Login.BulletText>
+                            </Login.BulletItem>
+                        </Login.BulletList>
+                    </Login.Intro>
 
-                    <Divider>
-                        <div style={{ fontSize: 14, marginBottom: 8, color: '#334155' }}>
-                            이메일 로그인(인증코드)은 다음 단계에서 연결합니다.
-                        </div>
-                        <Button 
-                            variant="ghost" 
-                            size="md" 
-                            disabled 
-                            title="다음 단계에서 활성화"
-                        >
-                            이메일로 로그인/회원가입
-                        </Button>
-                    </Divider>
-
-                    {error && <ErrorText>{error}</ErrorText>}
-                </div>
-            </Card>
-        </Wrap>
+                    <Login.AuthPanel>
+                        {/* TODO */}
+                    </Login.AuthPanel>
+                </Login.MainGrid>
+            </Login.Shell>
+        </Login.Page>
     )
 }
