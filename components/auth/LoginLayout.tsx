@@ -67,7 +67,75 @@ export function LoginLayout({
                     </Login.Intro>
 
                     <Login.AuthPanel>
-                        {/* TODO */}
+                        <Login.AuthCard>
+                            <Login.AuthHeader>
+                                <Login.AuthTitle>로그인</Login.AuthTitle>
+                                <Login.Badge>Guest & E-mail</Login.Badge>
+                            </Login.AuthHeader>
+                            <Login.AuthHint>
+                                게스트, 이메일 로그인 가능합니다.
+                            </Login.AuthHint>
+
+                            <div
+                                style={{
+                                    display: "grid",
+                                    gap: 12,
+                                    marginTop: 8
+                                }}
+                            >   
+                                <Button
+                                    onClick={onGuest}
+                                    disabled={loading}
+                                    loading={loading}
+                                    style={{ width: "100%" }}
+                                >
+                                    {loading ? "진행 중..." : "게스트로 진행하기"}
+                                </Button>
+                                <Login.AuthDivider />
+                                <Button
+                                    variant="ghost"
+                                    size="md"
+                                    disabled
+                                    loading={loading}
+                                    title="다음 단계에서 활성화"
+                                    style={{ width: "100%" }}
+                                > 
+                                    이메일로 로그인 / 회원가입
+                                </Button>
+                            </div>
+                            {error && <Login.ErrorText>{error}</Login.ErrorText>}
+                            <Login.AuthFooterText>
+                                이메일 로그인은 인증코드로 진행될 예정입니다.
+                            </Login.AuthFooterText>
+                        </Login.AuthCard>
+
+                        <Login.MiniDashboard>
+                            <Login.MiniTitle>
+                                <span>오늘의 캠페인 성과</span>
+                                <span style={{ fontSize: 11, color: "#9ca3af" }}>
+                                    Last 7 days
+                                </span>
+                            </Login.MiniTitle>
+                            <Login.MetricRow>
+                                <Login.Metric>
+                                    <Login.MetricLabel>CTR</Login.MetricLabel>
+                                    <Login.MetricValue>4.8%</Login.MetricValue>
+                                </Login.Metric>
+                            </Login.MetricRow>
+                            <Login.MetricRow>
+                                <Login.Metric>
+                                    <Login.MetricLabel>ROAS</Login.MetricLabel>
+                                    <Login.MetricValue>312%</Login.MetricValue>
+                                </Login.Metric>
+                            </Login.MetricRow>
+                            
+                            <Login.BarRow>
+                                <Login.Bar $height={40} />
+                                <Login.Bar $height={72} />
+                                <Login.Bar $height={55} />
+                                <Login.Bar $height={88} />
+                            </Login.BarRow>
+                        </Login.MiniDashboard>
                     </Login.AuthPanel>
                 </Login.MainGrid>
             </Login.Shell>

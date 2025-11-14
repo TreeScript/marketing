@@ -2,6 +2,8 @@ import "reflect-metadata"
 import { DataSource } from "typeorm"
 import fs from "node:fs"
 
+import { GuestUser } from "./entities/GuestUser"
+
 let _dataSource: DataSource | null = null
 
 function getSslConfig() {
@@ -15,11 +17,15 @@ function getSslConfig() {
         return {
             ca: caFromPath ?? caFromEnv
         }
-        return undefined
     }
+    return undefined
 }
 
-export function getAppDataSource() {
+const entities = [
+    GuestUser,
+]
+
+export async function getAppDataSource() {
     if(_dataSource && _dataSource.isInitialized) return _dataSource
 
     _dataSource = new DataSource({
@@ -29,11 +35,15 @@ export function getAppDataSource() {
         database: process.env.DB_NAME,
         username: process.env.DB_USER_APP,
         password: process.env.DB_PASS_APP,
-        entities: [],
+        entities,
         synchronize: false,
         logging: false,
         ssl: getSslConfig()
     })
+
+    if(!_dataSource.isInitialized) {
+        await _dataSource.initialize()
+    }
 
     return _dataSource
 }
