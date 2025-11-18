@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
 import { verifyGuestToken } from "@/lib/auth/token"
+import { touchGuestActivity } from "@/lib/db/guest"
+import { GuestUser } from "@/lib/db/entities/GuestUser"
+
+type guestActivity = {
+    expried: boolean
+    guest: GuestUser
+}
 
 export async function GET(request: NextRequest) {
 
@@ -13,7 +20,30 @@ export async function GET(request: NextRequest) {
         const payload = verifyGuestToken(token)
 
         if(!payload) {
-            return NextResponse.json({ user: null }, { status: 200 })
+            const result = NextResponse.json({ user: null }, { status: 200 })
+            result.cookies.set("kihoon_app_guest_token", "", {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "lax",
+                path: "/",
+                maxAge: 0
+            })
+
+            return result
+        }
+
+        const { expired, guest} = await touchGuestActivity(payload.idx)
+        if(expired || !guest) {
+            const result = NextResponse.json({ user: null }, { status: 200 })
+            result.cookies.set("kihoon_app_guest_token", "", {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "lax",
+                path: "/",
+                maxAge: 0,
+            })
+
+            return result
         }
 
         const user = {
@@ -22,9 +52,17 @@ export async function GET(request: NextRequest) {
             role: payload.role
         }
 
-
         return NextResponse.json({ user }, { status: 200 })
     }catch(error: any) {
-        return NextResponse.json({ user: null }, { status: 500 })
+        const result = NextResponse.json({ user: null }, { status: 200 })
+        result.cookies.set("kihoon_app_guest_token", "", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            path: "/",
+            maxAge: 0
+        })
+
+        return result
     }
 }

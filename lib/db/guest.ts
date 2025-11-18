@@ -17,8 +17,8 @@ async function getGuestRepo() {
 }
 
 export async function createGuest(opts?: {
-    userAgent?: string | null
-    ipAddress?: string | null
+    userAgent?: string
+    ipAddress?: string
 }): Promise<GuestUser> {
     const repo = await getGuestRepo()
 
@@ -64,4 +64,30 @@ export async function findGuestByIdx(idx: number): Promise<GuestUser | null> {
     const repo = await getGuestRepo()
 
     return await repo.findOne({ where: { idx } })
+}
+
+export async function touchGuestSession(idx: number) {
+    const repo = await getGuestRepo()
+
+    const guest = await repo.findOne({ where: { idx } })
+    if(!guest) {
+        return { expired: true as const, guest: null }
+    }
+
+    const now = new Date()
+
+    if(guest.expiresAt && guest.expiresAt.getTime() <= now.getTime()) {
+        await repo.delete({ idx })
+
+        return { expried: true as const, guest: null }
+    }
+
+    const newExpries = new Date(now.getTime() + GUEST_TTL_MINUTES * 60 * 1000)
+
+    guest.lastActiveAt = now
+    guest.expiresAt = newExpries
+
+    const updated = await repo.save(guest)
+
+    return { expired: false as const, guest: updated }
 }

@@ -9,6 +9,7 @@ export default function HomePage() {
     useAuthInit()
 
     const user = useAuthStore((s) => s.user)
+    // const initialized = useAuthStore((s) => s.initialized)
     const clear = useAuthStore((s) => s.clear)
 
     const onGoLogin = () => {
