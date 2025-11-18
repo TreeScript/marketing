@@ -5,9 +5,12 @@ import { api } from "@/lib/axios/client"
 import { useAuthStore } from "@/lib/store/auth"
 
 export function useAuthInit() {
+    const initialized = useAuthStore((s) => s.initialized)
     const setUser = useAuthStore((s) => s.setUser)
 
     useEffect(() => {
+        if(initialized) return
+        
         let isMounted = true
 
         async function load() {

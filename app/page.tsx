@@ -9,6 +9,7 @@ export default function HomePage() {
     useAuthInit()
 
     const user = useAuthStore((s) => s.user)
+    const initalized = useAuthStore((s) => s.initialized)
     const clear = useAuthStore((s) => s.clear)
 
     const onGoLogin = () => {
@@ -24,6 +25,16 @@ export default function HomePage() {
             clear()
             window.location.href = "/auth/login"
         }
+    }
+    
+    if(!initalized) {
+        return (
+            <div
+                style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}
+            >
+                <span>세션 확인 중...</span>
+            </div>
+        )
     }
 
     return <HomeLayout 
