@@ -7,7 +7,7 @@ const GUEST_TTL_SECONDS = 60 * 30
 
 export async function POST(request: NextRequest) {
     try {
-        const userAgent = request.headers.get("uset-agent") ?? undefined
+        const userAgent = request.headers.get("user-agent") ?? undefined
 
         const forwardedFor = request.headers.get("x-forwarded-for")
         const ipAddress = forwardedFor

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import StyledComponentsRegistry from "./registry"
 import Providers from "./providers"
+import { useAuthInit } from "@/lib/hooks/auth/useAuthInit";
 
 
 export const metadata: Metadata = {
@@ -13,6 +14,8 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    // useAuthInit()
+
     return (
         <html>
             <body>

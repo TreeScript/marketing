@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-type Role = "guest" | "user" | "manager" | "admin" | "portfolio_viewer"
+export type Role = "guest" | "user" | "manager" | "admin" | "portfolio_viewer"
 type User = {
     id: string
     email: string

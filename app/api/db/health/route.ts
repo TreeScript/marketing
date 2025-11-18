@@ -5,7 +5,7 @@ export const runtime = "nodejs"
 
 export async function GET() {
 
-    const ds = getAppDataSource()
+    const ds = await getAppDataSource()
 
     try {
         if(!ds.isInitialized) {

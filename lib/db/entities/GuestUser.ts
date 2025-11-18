@@ -12,13 +12,13 @@ export class GuestUser {
     @PrimaryGeneratedColumn()
     idx!: number
 
-    @Column({ type: "varchar", length, unique: true })
+    @Column({ type: "varchar", length: 1000, unique: true })
     id!: string
 
     @Column({ type: "varchar", length: 20, default: "guest" })
     role!: string
 
-    @CreateDateColumn({ name: "creeate_at", type: "datetime" })
+    @CreateDateColumn({ name: "created_at", type: "datetime" })
     createdAt!: Date
 
     @Column({
