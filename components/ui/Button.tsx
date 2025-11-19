@@ -48,8 +48,11 @@ const dangerStyle = css`
 type Variant = 'primary' | 'ghost' | 'danger'
 type Size = 'sm' | 'md' | 'lg'
 
-export const Button = styled.button<{ variant?: Variant; size?: Size, loading: boolean }>`
-
+export const Button = styled.button<{ 
+    variant?: Variant 
+    size?: Size 
+    // loading: boolean 
+}>`
     border: 1xp solid transparent;
     border-radius: 12px;
     cursor: pointer;
@@ -95,13 +98,6 @@ export const Button = styled.button<{ variant?: Variant; size?: Size, loading: b
     &:hover {
         transform: translateY(-1px);
         box-shadow: 0 18px 40px rgba(2, 6, 23, 0.1);
-    }
-
-    ${({ loading }) =>
-        loading && css`
-            opacity: 0.75;
-            pointer-events: none;
-        `
     }
 `
 

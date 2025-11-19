@@ -6,24 +6,36 @@ import { useAuthStore } from "@/lib/store/auth"
 
 export function useAuthInit() {
     const setUser = useAuthStore((s) => s.setUser)
+    const initialized = useAuthStore((s) => s.initialized)
+    const setInitialized = useAuthStore((s) => s.setInitialized)
 
     useEffect(() => {
-        let isMounted = true
+        if(initialized) return
+
+        let cancelled = false
 
         async function load() {
             try {
                 const res = await api.get("/api/auth/me")
-                const user = res.data?.user ?? null
 
-                if(!isMounted) return
+                console.log(`[/api/auth/me] status: ${JSON.stringify(res.status)}`)
+                console.log(`[/api/auth/me] res.data.user: ${JSON.stringify(res.data.user)}`)
+                
+                const user = res.data.user ?? null
+                console.log(`cancelled: ${cancelled}`)
+
+                if(cancelled) return
                 setUser(user)
             }catch(e) {
-                if(!isMounted) return
+                if(cancelled) return
                 setUser(null)
+            }finally {
+                if(cancelled) return
+                setInitialized(true)
             }
         }        
         load()
 
-        return () => { isMounted = false }
-    }, [setUser])
+        return () => { cancelled = true }
+    }, [initialized,setUser, setInitialized])
 }

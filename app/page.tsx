@@ -9,11 +9,21 @@ export default function HomePage() {
     useAuthInit()
 
     const user = useAuthStore((s) => s.user)
-    // const initialized = useAuthStore((s) => s.initialized)
+
+    console.log(`/app/page user: ${user}`)
+
+    const initialized = useAuthStore((s) => s.initialized)
     const clear = useAuthStore((s) => s.clear)
 
-    const onGoLogin = () => {
-        window.location.href = "/auth/login"
+    const onGoLogin = async () => {
+        try {
+            await api.post(`/api/auth/logout`)
+        }catch(error: any) {
+            console.error(`Logout Error: ${error}`)
+        }finally {
+            clear()
+            window.location.href = "/auth/login"
+        }
     }
 
     const onLogout = async () => {
@@ -27,9 +37,15 @@ export default function HomePage() {
         }
     }
 
-    return <HomeLayout 
-        user={user}
-        onGoLogin={onGoLogin}
-        onLogout={onLogout}
-    />
+    if(!initialized) {
+        return <div>세션 확인 중...</div>
+    }
+
+    return (
+        <HomeLayout 
+            user={user}
+            onGoLogin={onGoLogin}
+            onLogout={onLogout}
+        />
+    )
 }

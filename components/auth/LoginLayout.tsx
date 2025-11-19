@@ -86,7 +86,6 @@ export function LoginLayout({
                                 <Button
                                     onClick={onGuest}
                                     disabled={loading}
-                                    loading={loading}
                                     style={{ width: "100%" }}
                                 >
                                     {loading ? "진행 중..." : "게스트로 진행하기"}
@@ -96,7 +95,6 @@ export function LoginLayout({
                                     variant="ghost"
                                     size="md"
                                     disabled
-                                    loading={loading}
                                     title="다음 단계에서 활성화"
                                     style={{ width: "100%" }}
                                 > 

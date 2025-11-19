@@ -4,7 +4,7 @@ import { touchGuestActivity } from "@/lib/db/guest"
 import { GuestUser } from "@/lib/db/entities/GuestUser"
 
 type guestActivity = {
-    expried: boolean
+    expired: boolean
     guest: GuestUser
 }
 
@@ -20,19 +20,10 @@ export async function GET(request: NextRequest) {
         const payload = verifyGuestToken(token)
 
         if(!payload) {
-            const result = NextResponse.json({ user: null }, { status: 200 })
-            result.cookies.set("kihoon_app_guest_token", "", {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                sameSite: "lax",
-                path: "/",
-                maxAge: 0
-            })
-
-            return result
+            return NextResponse.json({ user: null }, { status: 200 })
         }
 
-        const { expired, guest} = await touchGuestActivity(payload.idx)
+        const { expired, guest } = await touchGuestActivity(payload.idx)
         if(expired || !guest) {
             const result = NextResponse.json({ user: null }, { status: 200 })
             result.cookies.set("kihoon_app_guest_token", "", {

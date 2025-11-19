@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import StyledComponentsRegistry from "./registry"
 import Providers from "./providers"
-import { useAuthInit } from "@/lib/hooks/auth/useAuthInit";
+import { AppShellClient } from "./AppShellClient"
 
 
 export const metadata: Metadata = {
@@ -20,7 +20,11 @@ export default function RootLayout({
         <html>
             <body>
                 <StyledComponentsRegistry>
-                    <Providers>{children}</Providers>
+                    <Providers>
+                        <AppShellClient>
+                            {children}
+                        </AppShellClient>
+                    </Providers>
                 </StyledComponentsRegistry>
             </body>
         </html>

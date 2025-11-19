@@ -19,7 +19,8 @@ export function HomeLayout({
     onGoLogin,
     onLogout
 }: HomeLayoutProps) {
-
+    // console.log(`Home Layout Test ${JSON.stringify(Home)}`)
+    
     return (
         <Home.Page>
             <Home.Shell>
@@ -49,7 +50,6 @@ export function HomeLayout({
                                         size="sm"
                                         variant="ghost"
                                         onClick={onLogout}
-                                        loading={false}
                                     >
                                         로그아웃
                                     </Button>
@@ -66,7 +66,6 @@ export function HomeLayout({
                                         size="sm"
                                         variant="ghost"
                                         onClick={onGoLogin}
-                                        loading={false}
                                     >
                                         로그인 페이지로 이동
                                     </Button>

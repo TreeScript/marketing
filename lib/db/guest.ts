@@ -1,6 +1,11 @@
 import { GuestUser } from "./entities/GuestUser"
 import { getAppDataSource } from "./data-source"
 
+type TouchGuestResult = {
+    expired: boolean
+    guest: GuestUser | null
+}
+
 const GUEST_TTL_MINUTES = 30
 
 function calcExpiresAt(): Date {
@@ -38,15 +43,30 @@ export async function createGuest(opts?: {
     return await repo.save(saved)
 }
 
-export async function touchGuestActivity(idx: number): Promise<void> {
+export async function touchGuestActivity(idx: number): Promise<TouchGuestResult> {
     const repo = await getGuestRepo()
-    await repo.update(
-        { idx },
-        {
-            lastActiveAt: new Date(),
-            expiresAt: calcExpiresAt(),
-        }
-    )
+
+    const guest = await repo.findOne({ where: { idx } })
+    if(!guest) return { expired: true, guest: null }
+
+    const now = new Date()
+    const expiredAt = guest.expiresAt
+
+    const expired = expiredAt && expiredAt.getTime() < now.getTime()
+    if(!expired) {
+        await repo.update(
+            { idx },
+            {
+                lastActiveAt: new Date(),
+                expiresAt: calcExpiresAt(),
+            }    
+        )
+    }
+
+    return {
+        expired,
+        guest
+    }
 }
 
 export async function deleteGuestByIdx(idx: number): Promise<void> {
