@@ -1,5 +1,5 @@
-import { GuestUser } from "./entities/GuestUser"
-import { getAppDataSource } from "./data-source"
+import { GuestUser } from "./service/entities/GuestUser"
+import { getServiceDataSource } from "./service/serviceDataSource"
 
 type TouchGuestResult = {
     expired: boolean
@@ -16,7 +16,7 @@ function calcExpiresAt(): Date {
 }
 
 async function getGuestRepo() {
-    const ds = await getAppDataSource()
+    const ds = await getServiceDataSource()
 
     return ds.getRepository(GuestUser)
 }

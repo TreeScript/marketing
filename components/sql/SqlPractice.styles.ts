@@ -60,7 +60,7 @@ export const BadgeRow = styled.div`
     gap: 8px;
 `
 
-export const DifficultyBadge = styled.span<{ $level: "easy" | "mid" | "hard" }>`
+export const DifficultyBadge = styled.span<{ $level: "easy" | "mid" | "hard" | "expert"}>`
     padding: 2px 10px;
     border-radius: 999px;
     font-size: 11px;

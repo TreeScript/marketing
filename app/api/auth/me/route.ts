@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { verifyGuestToken } from "@/lib/auth/token"
 import { touchGuestActivity } from "@/lib/db/guest"
-import { GuestUser } from "@/lib/db/entities/GuestUser"
+import { GuestUser } from "@/lib/db/service/entities/GuestUser"
 
 type guestActivity = {
     expired: boolean

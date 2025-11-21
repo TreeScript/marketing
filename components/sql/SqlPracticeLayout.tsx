@@ -4,7 +4,7 @@ import { SqlPractice } from "./SqlPractice.styles"
 import { Button } from "../ui/Button"
 import Link from "next/link"
 
-export type Difficulty = "easy" | "mid" | "hard"
+export type Difficulty = "easy" | "mid" | "hard" | "expert"
 
 export type SqlProblemSummary = {
     id: number

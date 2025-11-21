@@ -1,19 +1,33 @@
 import { NextResponse } from "next/server"
-import { getAppDataSource } from "@/lib/db/data-source"
+import { getServiceDataSource } from "@/lib/db/service/serviceDataSource"
+import { getPracticeDataSource } from "@/lib/db/practice/practiceDataSource"
 
 export const runtime = "nodejs"
 
 export async function GET() {
 
-    const ds = await getAppDataSource()
+    const ds = await getServiceDataSource()
+    const practiceDs = await getPracticeDataSource()
 
     try {
-        if(!ds.isInitialized) {
+        if(!ds.isInitialized && !practiceDs.isInitialized) {
             await ds.initialize()
         }
-        const result = await ds.query("SELECT 1 AS ok")
         
-        return NextResponse.json({ ok: true, result }, { status: 200 })
+        const [serviceResult] = await ds.query("SELECT NOW() AS now")
+        const [practiceResult] = await ds.query("SELECT NOW() AS now")
+        
+        return NextResponse.json({ 
+            ok: true, 
+            serviceDB: {
+                connected: true,
+                time: serviceResult.now
+            },
+            practiceDB: {
+                connected: true,
+                time: practiceResult.now
+            } 
+        }, { status: 200 })
     }catch(err: any) {
         console.error("[DB HEALTH ERROR]", err)
 
