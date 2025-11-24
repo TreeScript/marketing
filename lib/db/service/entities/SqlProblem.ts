@@ -44,6 +44,9 @@ export class SqlProblem {
     example_schema!: Record<string, string[]>
 
     @Column({ type: "json", nullable: false })
+    example_rows!: Record<string, any[]>
+
+    @Column({ type: "json", nullable: false })
     business_rules!: string[] | Record<string, any>
 
     @Column({ type: "json", nullable: false })

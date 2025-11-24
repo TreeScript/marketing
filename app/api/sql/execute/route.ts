@@ -1,13 +1,31 @@
+"use server"
+
 import { NextResponse } from "next/server"
 import mysql from "mysql2/promise"
+import fs from "node:fs"
+
+function getSSL() {
+    if(!process.env.DB_CA_CERT_PATH) return undefined
+
+    try {
+        return {
+            ca: fs.readFileSync(process.env.DB_CA_CERT_PATH, "utf-8")
+        }
+    }catch (err) {
+        console.error(`SSL read error: ${err}`)
+        return undefined
+    }
+}
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
-    user: process.env.DB_READONLY_USER,
-    password: process.env.DB_READONLY_PASS,
-    database: process.env.DB_NAME,
+    user: process.env.DB_USER_APP,
+    port: Number(process.env.DB_PORT),
+    password: process.env.DB_PASS_APP,
+    database: process.env.SQL_PROJECT_DB_NAME,
     waitForConnections: true,
-    connectionLimit: 10
+    connectionLimit: 10,
+    ssl: getSSL()
 })
 
 export async function POST(request: Request) {

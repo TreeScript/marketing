@@ -6,50 +6,74 @@ export const PageWrap = styled.div`
     display: flex;
     gap: 24px;
     align-items: flex-start;
+    padding: 24px;
 `
 
 /* LEFT */
+// export const Left = styled.div`
+//     flex: 0.7;
+//     background: #ffffff;
+//     padding: 28px;
+//     border-radius: 14px;
+//     box-shadow:
+//         0 18px 40px rgba(15, 23, 42, 0.08),
+//         0 0 0 1px rgba(148, 163, 184, 0.18);
+// `
+
 export const Left = styled.div`
-    flex: 0.7;
-    background: #ffffff;
-    padding: 28px;
-    border-radius: 14px;
-    box-shadow:
-        0 18px 40px rgba(15, 23, 42, 0.08),
-        0 0 0 1px rgba(148, 163, 184, 0.18);
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 `
 
 /* RIGHT */
+// export const Right = styled.div`
+//     flex: 1;
+//     background: #ffffff;
+//     padding: 24px;
+//     border-radius: 14px;
+//     box-shadow:
+//         0 18px 40px rgba(15, 23, 42, 0.08),
+//         0 0 0 1px rgba(148, 163, 184, 0.18);
+//     display: flex;
+//     flex-direction: column;
+//     gap: 18px;
+// `
+
 export const Right = styled.div`
-    flex: 1;
-    background: #ffffff;
-    padding: 24px;
-    border-radius: 14px;
-    box-shadow:
-        0 18px 40px rgba(15, 23, 42, 0.08),
-        0 0 0 1px rgba(148, 163, 184, 0.18);
+    flex: 0.5;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 20px;
+`
+
+
+export const Card = styled.div`
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
 `
 
 export const Title = styled.h1`
-    margin: 0;
+    margin: 0 0 8px;
     font-size: 22px;
     font-weight: 700;
-    color: #0f172a;
     letter-spacing: -0.02em;
+    color: #0f172a;
 `
 
 export const Description = styled.p`
-    margin: 12px 0 20px;
+    margin: 0 0 16px;
     font-size: 14px;
-    color: #64748b;
-    line-height: 1.5;
+    color: #475569;
+    line-height: 1.6;
 `
 
 export const SectionTitle = styled.h2`
-    margin: 28px 0 12px;
+    margin: 0 0 10px;
     font-size: 15px;
     font-weight: 600;
     color: #0f172a;
@@ -58,34 +82,33 @@ export const SectionTitle = styled.h2`
 /* Badge Area */
 export const BadgeWrap = styled.div`
     display: flex;
-    gap: 10px;
-    margin-top: 12px;
+    gap: 8px;
     margin-bottom: 12px;
 `
 
 export const DifficultyBadge = styled.span<{ $level: string }>`
-    padding: 4px 10px;
-    font-size: 12px;
+    padding: 3px 10px;
     border-radius: 999px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: 11px;
     font-weight: 600;
-    color: #fff;
-    background: ${({ $level }) =>
-        $level === "easy" ? "#4ade80" :
-        $level === "mid" ? "#3b82f6" :
-        $level === "hard" ? "#f97316" :
-        "#7e22ce"};
+    text-transform: uppercase;
+
+    background: ${({ $level }) => 
+        $level === "easy" ? "#e0f2fe" :
+        $level === "mid" ? "#fef9c3" :
+        $level === "hard" ? "#fee2e2" :
+        "#ede9fe"};
+    color: #334155;
 `
 
 export const CategoryBadge = styled.span`
-    padding: 4px 10px;
-    font-size: 12px;
+    padding: 3px 10px;
     border-radius: 999px;
-    background: #e2e8f0;
-    color: #475569;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.05em;
+    background: #eef2ff;
+    color: #4f46e5;
+    text-transform: uppercase;
 `
 
 /* Tags */
@@ -93,7 +116,7 @@ export const TagWrap = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 `
 
 export const Tag = styled.span`
@@ -101,7 +124,7 @@ export const Tag = styled.span`
     color: #475569;
     padding: 4px 8px;
     border-radius: 6px;
-    font-size: 12px;
+    font-size: 11px;
 `
 
 /* Schema Area */
@@ -113,30 +136,17 @@ export const SchemaArea = styled.div`
 `
 
 export const SchemaCard = styled.div`
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
     border: 1px solid #e2e8f0;
-    box-shadow: 
-        0 12px 28px rgba(15, 23, 42, 0.08)
-        0 0 0 1px rgba(148, 163, 184, 0.15);
-
-    ul {
-        margin-top: 6px;
-        margin-left: 18px;
-    }
-
-    li {
-        font-size: 13px;
-        color: #475569;
-    }
+    border-radius: 10px;
+    padding: 16px;
+    background: #ffffff;
 `
 
 export const SchemaHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
 `
 
 export const SchemaTableName = styled.div`
@@ -146,13 +156,11 @@ export const SchemaTableName = styled.div`
 `
 
 export const SchemaBadge = styled.span`
-    padding: 4px 8px;
+    padding: 2px 8px;
+    background: #f1f5f9;
     border-radius: 6px;
     font-size: 11px;
-    font-weight: 600;
-    background: #eff6ff;
-    color: #2563eb;
-    border: 1px solid #bfdbfe;
+    color: #475569;
 `
 
 export const SchemaTable = styled.table`
@@ -160,20 +168,22 @@ export const SchemaTable = styled.table`
     border-collapse: collapse;
     font-size: 13px;
 
-    th, td {
-        border: 1px solid #e2e8f0;
-        padding: 6px 10px;
-        text-align: left;
-    }
-
     th {
         background: #f8fafc;
-        font-weight: 600;
+        padding: 6px;
+        border-bottom: 1px solid #e2e8f0;
+        text-align: left;
         color: #475569;
     }
 
     td {
+        padding: 6px;
+        border-bottom: 1px solid #f1f5f9;
         color: #334155;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
     }
 `
 
@@ -184,8 +194,8 @@ export const RuleList = styled.ul`
 `
 
 export const RuleItem = styled.li`
-    margin-bottom: 8px;
-    font-size: 13px;
+    margin-bottom: 6px;
+    font-size: 14px;
     color: #475569;
 `
 
@@ -193,48 +203,71 @@ export const RuleItem = styled.li`
 export const RunButtonArea = styled.div`
     display: flex;
     justify-content: flex-end;
-    margin-top: 4px;
+    margin-top: 12px;
 `
 
 /* Error Box */
 export const ErrorBox = styled.div`
-    padding: 12px;
     background: #fef2f2;
-    color: #b91c1c;
     border: 1px solid #fecaca;
+    padding: 12px;
     border-radius: 8px;
-    font-size: 13px;
+    color: #b91c1c;
+    font-size: 14px;
 `
 
 /* Table Box */
 export const TableBox = styled.div`
-    max-height: 300px;
-    overflow: auto;
+    width: 100%;
+    overflow-x: auto;
     border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 8px;
+    border-radius: 10px;
     background: #ffffff;
 
     table {
         width: 100%;
         border-collapse: collapse;
-    }
-
-    th, td {
-        border: 1px solid #e2e8f0;
-        padding: 6px 8px;
         font-size: 13px;
     }
 
     th {
         background: #f1f5f9;
+        padding: 8px;
+        border-bottom: 1px solid #e2e8f0;
+        text-align: left;
         font-weight: 600;
         color: #475569;
     }
 
     td {
+        padding: 8px;
+        border-bottom: 1px solid #f1f5f9;
         color: #334155;
     }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+`
+
+export const ResultCorrect = styled.div`
+    background: #ecfdf5;
+    border: 1px solid #6ee7b7;
+    color: #047857;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+`
+
+export const ResultWrong = styled.div`
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
 `
 
 export const SqlProblemStyles = {
@@ -243,6 +276,7 @@ export const SqlProblemStyles = {
     Right,
     Title,
     Description,
+    Card,
     SectionTitle,
     BadgeWrap,
     DifficultyBadge,
@@ -259,5 +293,7 @@ export const SqlProblemStyles = {
     TableBox,
     SchemaHeader,
     SchemaBadge,
-    SchemaTable
+    SchemaTable,
+    ResultWrong,
+    ResultCorrect
 }
