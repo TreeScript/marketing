@@ -47,7 +47,7 @@ export function AppShellLayout({
                                 </AppShell.NavLink>
                             )
                         })}
-                    </AppShell.Nav>
+                    </AppShell.Nav>                    
                     
                     <AppShell.RightArea>
                         {user && (
@@ -66,6 +66,9 @@ export function AppShellLayout({
                                 </Button>
                             </>
                         )}
+                        <AppShell.AdminButton href="/admin/login">
+                            관리자 로그인
+                        </AppShell.AdminButton>
                     </AppShell.RightArea>
                 </AppShell.HeaderInner>
             </AppShell.Header>

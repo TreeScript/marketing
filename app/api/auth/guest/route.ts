@@ -45,7 +45,6 @@ export async function POST(request: NextRequest) {
 
         return result
     }catch(error) {
-        console.error("[POST /api/auth/geust] error", error)
 
         return NextResponse.json(
             { message: "게스트 로그인 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요." },

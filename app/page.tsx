@@ -9,9 +9,6 @@ export default function HomePage() {
     useAuthInit()
 
     const user = useAuthStore((s) => s.user)
-
-    console.log(`/app/page user: ${user}`)
-
     const initialized = useAuthStore((s) => s.initialized)
     const clear = useAuthStore((s) => s.clear)
 
@@ -19,7 +16,7 @@ export default function HomePage() {
         try {
             await api.post(`/api/auth/logout`)
         }catch(error: any) {
-            console.error(`Logout Error: ${error}`)
+            
         }finally {
             clear()
             window.location.href = "/auth/login"
@@ -30,7 +27,7 @@ export default function HomePage() {
         try {
             await api.post(`/api/auth/logout`)
         }catch(error: any) {
-            console.error(`Logout Error: ${error}`)
+
         }finally {
             clear()
             window.location.href = "/auth/login"

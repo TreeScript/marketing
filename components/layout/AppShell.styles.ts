@@ -11,9 +11,10 @@ export const Shell = styled.div`
 `
 
 export const Header = styled.header`
+    width: 100%;
     height: 56px;
-    padding: 0 24px;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+    padding: 0 28px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.6);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,6 +35,21 @@ export const Brand = styled.div`
 export const Main = styled.main`
     flex: 1;
     padding: 24px 24px 40px;
+`
+
+export const AdminButton = styled(Link)`
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid #dc2626;
+    color: #b91c1c;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.18s ease;
+
+    &:hover {
+        background: #dc2626;
+        color: #fff;
+    }
 `
 
 export const Footer = styled.footer`
@@ -120,5 +136,6 @@ export const AppShell = {
     RightArea,
     UserText,
     HeaderInner,
+    AdminButton
 }
 
