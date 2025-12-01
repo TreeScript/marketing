@@ -1,16 +1,27 @@
 "use client"
 
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 
+const tempBaseURL = process.env.NEXT_PUBLIC_API_BASE_URL
+const baseUrlVerify = 
+    process.env.NEXT_PUBLIC_API_BASE_URL &&
+    process.env.NEXT_PUBLIC_API_BASE_URL.length > 0
+
+
+const baseURL = baseUrlVerify ? tempBaseURL : ""
+    
 // axios 객체 생성
 export const api = axios.create({
-    baseURL: process.env.NEXT_PUBLISH_API_URL ?? '',
+    baseURL,
     withCredentials: true,
-    timeout: 8000,
-    headers: {
-        'Content-Type': 'application/json',
-    }
+    timeout: 10_000,
 })
+
+export type ApiError = {
+    status?: number
+    message: string
+    raw?: unknown
+}
 
 api.interceptors.request.use(
     (config) => {
@@ -24,19 +35,17 @@ api.interceptors.request.use(
 )
 
 api.interceptors.response.use(
-    (result) => result,
-    async (error) => {
-        const status = error?.response?.status
-
-        console.error(`Response Error [$(status)]: ${error}`)
-
-        // 세션 만료 or 권한 없음 → 로그인 화면으로 강제 이동
-        if(status === 401 || status === 403) {
-            if(typeof window !== 'undefined') {
-                window.location.href = `/auth/login`
-            }
+    (response) => response,
+    (error: AxiosError<any>) => {
+        const apiError: ApiError = {
+            status: error.response?.status,
+            message:
+                (error.response?.data as any)?.message ||
+                error.message ||
+                "요청 중 알 수 없는 오류가 발생했습니다.",
+            raw: error,
         }
 
-        return Promise.reject(error)
+        return Promise.reject(apiError)
     }
 )

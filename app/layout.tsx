@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import StyledComponentsRegistry from "./registry"
 import Providers from "./providers"
+import { AppShellClient } from "./AppShellClient"
 
 
 export const metadata: Metadata = {
@@ -13,11 +14,17 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    // useAuthInit()
+
     return (
         <html>
             <body>
                 <StyledComponentsRegistry>
-                    <Providers>{children}</Providers>
+                    <Providers>
+                        <AppShellClient>
+                            {children}
+                        </AppShellClient>
+                    </Providers>
                 </StyledComponentsRegistry>
             </body>
         </html>

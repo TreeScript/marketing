@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-type Role = "guest" | "user" | "manager" | "admin" | "portfolio_viewer"
+export type Role = "guest" | "user" | "manager" | "admin" | "portfolio_viewer"
 type User = {
     id: string
     email: string
@@ -9,12 +9,16 @@ type User = {
 
 type AuthState = {
     user: User
+    initialized: boolean
     setUser: (u: User) => void
+    setInitialized: (v: boolean) => void
     clear: () => void
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
     user: null,
+    initialized: false,
     setUser: (u) => set({ user: u }),
-    clear: () => set({ user: null })
+    setInitialized: (v) => set({ initialized: v }),
+    clear: () => set({ user: null, initialized: false })
 }))
