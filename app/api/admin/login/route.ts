@@ -18,19 +18,12 @@ export async function POST(request: Request) {
         const adminSessionRepo = dataSource.getRepository(AdminSession)
 
         const admin = await adminUserRepo.findOne({ where: { admin_id } })
-
-        console.log(`ADMIN: ${JSON.stringify(admin)}`)
-
         if(!admin) {
-
-            console.log(`데이터 체크`)
             return errorResponse("존재하지 않는 계정입니다.", 401)
         }
         
         const match = await bcrypt.compare(password, admin.password_hash)
         if(!match) {
-
-            console.log(`데이터 체크222`)
             return errorResponse("비밀번호가 일치하지 않습니다.", 400)
         }
 
@@ -38,6 +31,8 @@ export async function POST(request: Request) {
         const expiresAt = new Date()
         expiresAt.setHours(expiresAt.getHours() + 24)
 
+        console.log(`서버: 어드민세션 체크`)
+        console.log(`AdminID: ${admin_id} sesssionToken: ${sessionToken}, expires_at: ${expiresAt}`)
         const admimSession = adminSessionRepo.create({
             admin: admin,
             session_token: sessionToken,
@@ -61,6 +56,7 @@ export async function POST(request: Request) {
 
         return response
     }catch(error: any) {
+        console.log(`ADMIN ERROR: ${error}`)
         return errorResponse(error.response, 500)
     }
 }

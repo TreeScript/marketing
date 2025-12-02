@@ -1,10 +1,8 @@
-"use client"
+// "use client"
 
-export default function AdminPage() {
-    
-    return (
-        <div style={{ padding: 32 }}>
-            관리자 로그인 완료 - 임시페이지
-        </div>
-    )
+import AdminHomeLayout from "@/components/admin/AdminHomeLayout"
+
+export default function AdminHomePage() {
+
+    return <AdminHomeLayout></AdminHomeLayout>
 }

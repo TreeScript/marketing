@@ -34,7 +34,6 @@ export const Brand = styled.div`
 
 export const Main = styled.main`
     flex: 1;
-    padding: 24px 24px 40px;
 `
 
 export const AdminButton = styled(Link)`
@@ -138,4 +137,3 @@ export const AppShell = {
     HeaderInner,
     AdminButton
 }
-

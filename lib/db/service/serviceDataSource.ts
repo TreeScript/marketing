@@ -5,6 +5,7 @@ import getSslConfig from "../feature/_ds"
 import { GuestUser } from "./entities/GuestUser"
 import { SqlProblem } from "./entities/SqlProblem"
 import { AdminUser } from "./entities/AdminUser"
+import { AdminSession } from "./entities/AdminSession"
 
 getSslConfig()
 
@@ -15,6 +16,7 @@ const entities = [
     GuestUser,
     SqlProblem,
     AdminUser,
+    AdminSession,
 ]
 
 export async function getServiceDataSource() {

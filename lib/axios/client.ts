@@ -13,6 +13,7 @@ const baseURL = baseUrlVerify ? tempBaseURL : ""
 // axios 객체 생성
 export const api = axios.create({
     baseURL,
+    validateStatus: () => true,
     withCredentials: true,
     timeout: 10_000,
 })

@@ -6,7 +6,9 @@ import { useRouter } from "next/navigation"
 import { AdminLoginStyle } from "./AdminLogin.styles"
 
 export default function AdminLoginLayout() {
+    
     const router = useRouter()
+
     const [adminId, setAdminId] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
@@ -19,7 +21,6 @@ export default function AdminLoginLayout() {
             password,
         })
         const result = response.data
-        console.log(`RESPONSE: ${JSON.stringify(result)}`)
 
         const loginSuccess: boolean = response.data.ok
         if(!loginSuccess) {
@@ -27,33 +28,6 @@ export default function AdminLoginLayout() {
         }
 
         router.push(`/admin`)
-
-
-        // try {
-        //     const response = await api.post(`/api/admin/login`, {
-        //         admin_id: adminId,
-        //         password
-        //     })
-
-        //     // console.log(`RESPONSE: ${JSON.stringify(response)}`)
-
-        //     const result = response.data
-        //     const loginSuccess = response.data.ok
-
-        //     // console.log(`result: ${result}`)
-
-        //     if(!loginSuccess) {
-        //         setError(result.error)
-        //     }
-
-        //     if(response.data.ok) {
-        //         router.push(`/admin`)
-        //     }else {
-        //         setError(response.data.error || `ㅎㅇ`)
-        //     }
-        // }catch(_error: any) {
-        //     setError(`로그인 오류: ${error}`)
-        // }
     }
 
     return (
